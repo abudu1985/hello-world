@@ -1,7 +1,4 @@
-const initialState = [
-        'Smells like teen spirit',
-        'No air'
-    ];
+const initialState = [];
 
 export default function tracks(state = initialState, action) {
     //console.log(action);
