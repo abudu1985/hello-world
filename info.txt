@@ -1,0 +1,3 @@
+https://monsterlessons.com/project/lessons/reduxjs-asinhronnye-eksheny-s-pomoshyu-redux-thunk
+
+lesson 8
