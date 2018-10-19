@@ -6,24 +6,9 @@ import App from './App';
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import reducer from './reducers';
 
-const initialState = [
-    'Smells like teen spirit',
-    'No air'
-]
-
-function playList(state = initialState, action) {
-    //console.log(action);
-    if (action.type === 'ADD_TRACK') {
-        return [
-            ...state,
-            action.payload
-        ];
-    }
-    return state;
-}
-
-const store = createStore(playList, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>
