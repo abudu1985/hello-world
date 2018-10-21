@@ -1,3 +1,6 @@
 https://monsterlessons.com/project/lessons/reduxjs-asinhronnye-eksheny-s-pomoshyu-redux-thunk
 
 lesson 8
+
+drag library:
+https://reactjsexample.com/a-set-of-higher-order-components-to-turn-any-list-into-an-animated-sortable-list/

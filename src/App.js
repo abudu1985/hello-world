@@ -1,8 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTracks } from './actions/tracks';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+
+
+const SortableItem = SortableElement(({value}) =>
+  <li>{value}</li>
+);
+
+const SortableList = SortableContainer(({items}) => {
+  return (
+    <ul>
+      {items.map((value, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={value} />
+      ))}
+    </ul>
+  );
+});
 
 class App extends Component {
+
+  state = {
+    items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
+  };
+
+  onSortEnd = ({oldIndex, newIndex}) => {
+    console.log(oldIndex);
+    console.log(newIndex);
+    this.setState({
+      items: arrayMove(this.state.items, oldIndex, newIndex),
+    });
+    this.props.onChangeOrder(this.state.items)
+  };
 
   addTrack() {
     console.log('addTrack', this.trackInput.value);
@@ -35,6 +64,7 @@ class App extends Component {
                   <li key={index}>{track.name}</li>
               )}
           </ul>
+        <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
       </div>
     );
   }
@@ -42,7 +72,7 @@ class App extends Component {
 
 export default connect(
     state => ({
-        tracks: state.tracks.filter(track => track.name.includes(state.filterTracks))
+        tracks: state.tracks.filter(track => track.name.includes(state.filterTracks)),
     }),
     dispatch => ({
         onAddTrack: (name) => {
@@ -58,6 +88,9 @@ export default connect(
         onGetTracks: () => {
 
             dispatch(getTracks());
+        },
+        onChangeOrder: (items) => {
+          dispatch({type: 'REORDER_ITEMS', payload: items})
         }
     })
 )(App);
